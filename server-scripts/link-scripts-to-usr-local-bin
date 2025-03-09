@@ -3,6 +3,9 @@
 # Use first argument as scripts directory, or current directory if no argument provided
 SCRIPTS_DIR="${1:-.}"
 
+# Convert to absolute path
+SCRIPTS_DIR=$(realpath "$SCRIPTS_DIR")
+
 # Create symbolic links for all executable scripts in the specified directory
 for script in "$SCRIPTS_DIR"/*; do
   if [ -f "$script" ] && [ -x "$script" ]; then
