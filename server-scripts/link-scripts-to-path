@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Use first argument as scripts directory, or current directory if no argument provided
+SCRIPTS_DIR="${1:-.}"
+
+# Create symbolic links for all executable scripts in the specified directory
+for script in "$SCRIPTS_DIR"/*; do
+  if [ -f "$script" ] && [ -x "$script" ]; then
+    sudo ln -s "$script" /usr/local/bin/$(basename "$script")
+  fi
+done
