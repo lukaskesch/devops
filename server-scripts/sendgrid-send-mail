@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Usage: sendgrid-send-mail <to_email> <subject> <body>
+
+# Check if all arguments are provided
+if [ $# -ne 3 ]; then
+    echo "Usage: $0 <to_email> <subject> <body>" >&2
+    exit 1
+fi
+
+curl --request POST \
+  --url https://api.sendgrid.com/v3/mail/send \
+  --header "Authorization: Bearer $SENDGRID_API_KEY" \
+  --header 'Content-Type: application/json' \
+  --data '{"personalizations": [{"to": [{"email": "$1"}]}],"from": {"email": "mail@kesch.dev"},"subject": "$2","content": [{"type": "text/plain", "value": "$3"}]}'
